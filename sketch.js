@@ -14,6 +14,7 @@ function setup(){
 function draw(){
 	background(0);
 
+	//go through each bullet and transform it/check for collision
 	for(let i = 0; i < bullets.length; i++){
 		cbul = bullets[i];
 		cbul.colbox[0] += cos(cbul.dir)*cbul.speed;
@@ -28,10 +29,12 @@ function draw(){
 		box(cbul.colbox[2], cbul.colbox[3], 20);
 		pop();
 	}
+	//create the bullets
 	if(frameCount%40 == 0){
 		bullets.push(new bullet([pbox[0], pbox[1], 20, 20], 3*PI/2, 10));
 	}
 
+	//enemy translation
 	push();
 		let speed = 18;
 		let range = 100;
@@ -42,6 +45,7 @@ function draw(){
 		box(flybox[2], flybox[3], 50);
 	pop();
 
+	//player translation
 	push();
 		fill(0, 0, 255);
 		pbox[0] = mouseX-width/2;
@@ -53,6 +57,9 @@ function draw(){
 }
 
 
+//collision checking function
+//first checks if the x value of either box is in the range of the other box
+//if that is true, then it checks if the y value of either box is in the other box
 function collides(box1, box2){
 	if(box1[0] >= box2[0] && box1[0] <= box2[0]+box2[2]){
 		if(box1[1] >= box2[1] && box1[1] <= box2[1]+box2[3]){
@@ -73,6 +80,7 @@ function collides(box1, box2){
 	return false;
 }
 
+//struct for bullet data
 function bullet(colbox, dir, speed){
 	this.colbox = colbox;
 	this.dir = dir;
