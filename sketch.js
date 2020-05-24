@@ -1,18 +1,18 @@
-var pbox;
+var pbox;//collision box for the player
 
-var bullets;
-var enemies;
+var bullets;//array for all the bullets on the screen
+var enemies;//array for all the enemies on screen
 
-var enemy_timer;
-var move_period;
+var enemy_timer;//timer variable to keep track of which direction to move them in
+var move_period;//how many frames it takes for one round of moving back and forth for enemies
 
 function setup(){
 	createCanvas(1024, 640, WEBGL);
 	background(0);
 
+	//note that all collision boxes are arrays formatted as [x, y, width, height]
 	pbox = [0, 0, 50, 50];
 	bullets = [];
-	enemies = [];
 	init_enemies();
 	move_period = 1024;
 	enemy_timer = -move_period;
@@ -49,6 +49,7 @@ function collides(box1, box2){
 	return false;
 }
 
+//controls
 function mousePressed(){
 	if(mouseButton === LEFT){
 		bullets.push(new bullet([pbox[0], pbox[1], 20, 20], 3*PI/2, 10));
@@ -70,6 +71,7 @@ function enemy(colbox, health){
 	this.tag = "enemy";
 }
 
+//code that runs each frame for each bullet currently on screen
 function bullet_loop(){
 	for(let i = 0; i < bullets.length; i++){
 		//go through each bullet and transform it/check for collision
@@ -99,6 +101,7 @@ function bullet_loop(){
 	}
 }
 
+//code that runs each frame for each enemy on screen
 function enemy_loop(){
 	for(let i = 0; i < enemies.length; i++){
 		//enemy translation
@@ -122,7 +125,9 @@ function enemy_loop(){
 	}
 }
 
+//creates the initial wave of enemies
 function init_enemies(){
+	enemies = [];
 	for(let i = 0; i < 4; i++){
 		for(let k = 0; k < 3; k++){
 			enemies[i+k*4] = new enemy([i*160 - width/4, k*80 - height/3, 50, 50], 2);
@@ -131,6 +136,7 @@ function init_enemies(){
 	console.log(enemies);
 }
 
+//code to run each frame for the player
 function player_loop(){
 	//player translation
 	push();
