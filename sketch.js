@@ -1,7 +1,7 @@
 var stage = 0;
 var counter;
 var score=0;
-var timer=15;
+var timer=25;
 var beep;
 var titleg;
 var maing;
@@ -81,7 +81,7 @@ function draw() {
         if(count%60==0){
             timer-=1;
         }
-        if(score >= 8*5*10){
+        if(score >= 7*5*10){
             stage=2;
         }
         if(timer==0){
@@ -93,7 +93,7 @@ function draw() {
         win();
         score =0;
         count=0;
-        timer=15;
+        timer=25;
         if (keyPressed) {
             if (key == 'r') {
                 title();
@@ -107,7 +107,7 @@ function draw() {
         die();
         score =0;
         count=0;
-        timer=15;
+        timer=25;
         if (keyPressed) {
             if (key == 'r') {
                 title();
@@ -374,12 +374,11 @@ function enemy_loop() {
 //creates the initial wave of enemies
 function init_enemies() {
     enemies = [];
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 7; i++) {
         for (let k = 0; k < 5; k++) {
-            enemies[i + k * 8] = new enemy([i * 160 - width / 3, k * 80 - height / 3, 50, 50], 2);
+            enemies[i + k * 7] = new enemy([i * 160 - width / 3, k * 80 - height / 3, 50, 50], 2);
         }
     }
-    console.log(enemies);
 }
 
 //code to run each frame for the player
